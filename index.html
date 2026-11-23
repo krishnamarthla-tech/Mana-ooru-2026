@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="te">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#176b45">
+  <title>మన ఊరు</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,"Noto Sans Telugu",sans-serif;background:#f4f7f4;color:#183326}
+    header{background:#176b45;color:white;padding:18px 16px} header h1{margin:0;font-size:25px} header p{margin:5px 0 0;font-size:14px}
+    main{max-width:760px;margin:auto;padding:14px} section{background:white;border-radius:14px;padding:16px;margin:12px 0;box-shadow:0 2px 10px #163b1a12}
+    h2{font-size:19px;margin:0 0 12px} label{display:block;font-weight:600;margin:10px 0 5px}
+    input,select,textarea,button{font:inherit;width:100%;padding:12px;border:1px solid #cbd8ce;border-radius:9px;background:white}
+    button{background:#176b45;color:white;border:0;font-weight:700;margin-top:12px;cursor:pointer}
+    button.secondary{background:#e7f1ea;color:#176b45} .muted{color:#617468;font-size:13px}
+    .product{border:1px solid #e1e9e2;padding:10px;border-radius:10px;margin:8px 0;display:flex;justify-content:space-between;gap:10px}
+    .product button{width:auto;min-width:92px;margin:0;padding:8px 10px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px} .hidden{display:none!important}
+    .status{padding:9px;border-radius:8px;background:#edf5ef;margin:8px 0;font-size:14px;white-space:pre-wrap}
+    .order{border:1px solid #e1e9e2;border-radius:10px;padding:12px;margin:10px 0}
+    @media(max-width:520px){.row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header><h1>మన ఊరు</h1><p>మన మూడు గ్రామాలకు స్థానిక సేవలు</p></header>
+<main>
+  <div id="message" class="status">యాప్ సిద్ధంగా ఉంది.</div>
+  <section>
+    <h2>గ్రామం ఎంచుకోండి</h2>
+    <select id="village">
+      <option>దేవరపాలెం</option><option>బక్కిరెడ్డిపాలెం</option><option>ఒబ్బచెత్తపాలెం</option>
+    </select>
+  </section>
+  <section>
+    <h2>ఉత్పత్తులు</h2>
+    <div id="products"><p class="muted">ఉత్పత్తులు లోడ్ అవుతున్నాయి...</p></div>
+  </section>
+  <section>
+    <h2>ఆర్డర్ వివరాలు</h2>
+    <label>మీ పేరు</label><input id="customerName" placeholder="మీ పేరు">
+    <label>మొబైల్ నంబర్</label><input id="phone" inputmode="tel" placeholder="మీ ఫోన్ నంబర్">
+    <label>చిరునామా</label><textarea id="address" rows="2" placeholder="ఇంటి చిరునామా"></textarea>
+    <label>ఎంచుకున్న వస్తువులు</label><div id="cart" class="status">ఇంకా వస్తువులు ఎంచుకోలేదు.</div>
+    <div class="row"><div><label>చెల్లింపు విధానం</label><select id="payment"><option value="COD">డెలివరీ సమయంలో నగదు</option><option value="UPI">UPI</option></select></div>
+    <div><label>మొత్తం (₹)</label><input id="total" value="0" readonly></div></div>
+    <button id="placeOrder">ఆర్డర్ పంపండి</button>
+  </section>
+  <section>
+    <h2>అడ్మిన్ ప్రవేశం</h2>
+    <p class="muted">ఆర్డర్లు చూడటానికి మీ Firebase Authentication-ൽ സജ്ജീകരിച്ച അഡ്മിൻ ഇമെയിൽ ഉപയോഗിക്കുക.</p>
+    <label>అడ్మిన్ ఇమెయిల్</label><input id="adminEmail" type="email" placeholder="మీ అడ్మిన్ ఇమెయిల్">
+    <label>పాస్‌వర్డ్</label><input id="adminPassword" type="password" placeholder="మీ పాస్‌వర్డ్">
+    <button id="adminLogin">అడ్మిన్ లాగిన్</button>
+    <button id="adminLogout" class="secondary hidden">లాగ్ అవుట్</button>
+    <div id="adminPanel" class="hidden">
+      <h2 style="margin-top:18px">వచ్చిన ఆర్డర్లు</h2><div id="orders"></div>
+      <h2 style="margin-top:18px">కొత్త ఉత్పత్తి చేర్చండి</h2>
+      <label>ఉత్పత్తి పేరు</label><input id="newProductName" placeholder="ఉదా: ఉల్లిపాయలు">
+      <div class="row"><div><label>ధర (₹)</label><input id="newProductPrice" type="number" min="1" placeholder="ధర"></div><div><label>వర్గం</label><input id="newProductCategory" placeholder="కూరగాయలు"></div></div>
+      <button id="addProduct">ఉత్పత్తి చేర్చండి</button>
+    </div>
+  </section>
+  <p class="muted">ఇది ప్రారంభ వెర్షన్. నిజమైన వినియోగానికి ముందు Firestore Rules మరియు అడ్మిన్ లాగిన్ సెటప్ తప్పనిసరి.</p>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
